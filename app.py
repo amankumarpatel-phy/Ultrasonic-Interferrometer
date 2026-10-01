@@ -103,7 +103,7 @@ div[data-baseweb="input"] > div{
 .hero{
     background:linear-gradient(135deg,#07182d 0%,#0c2b49 52%,#176885 100%);
     border-radius:24px;
-    padding:24px 28px 28px;
+    padding:22px 28px 26px;
     color:#fff;
     text-align:center;
     box-shadow:0 14px 34px rgba(10,32,52,.15);
@@ -111,8 +111,8 @@ div[data-baseweb="input"] > div{
 }
 
 .logo-shell{
-    width:98px;
-    height:98px;
+    width:118px;
+    height:118px;
     margin:0 auto 13px auto;
     border-radius:20px;
     background:#ffffff;
@@ -126,8 +126,8 @@ div[data-baseweb="input"] > div{
 
 .logo-shell img{
     display:block;
-    width:84px;
-    height:84px;
+    width:102px;
+    height:102px;
     object-fit:contain;
 }
 
@@ -258,21 +258,29 @@ for key, value in defaults.items():
 # ============================================================
 # LOGO HEADER
 # ============================================================
-logo_path = os.path.join(os.path.dirname(__file__), "assets", "logo.png")
+# Support both common GitHub layouts:
+#   1) assets/logo.png  (recommended)
+#   2) logo.png         (repository root)
+logo_candidates = [
+    os.path.join(os.path.dirname(__file__), "assets", "logo.png"),
+    os.path.join(os.path.dirname(__file__), "logo.png"),
+]
 
-if os.path.exists(logo_path):
+logo_path = next((candidate for candidate in logo_candidates if os.path.isfile(candidate)), None)
+
+if logo_path:
     with open(logo_path, "rb") as logo_file:
         logo_b64 = base64.b64encode(logo_file.read()).decode("ascii")
     logo_html = (
-        f'<div class="logo-shell">'
-        f'<img src="data:image/png;base64,{logo_b64}" alt="Aman Edge Physics logo">'
-        f'</div>'
+        '<div class="logo-shell">'
+        f'<img src="data:image/png;base64,{logo_b64}" '
+        'alt="Aman Edge Physics logo">'
+        '</div>'
     )
 else:
-    # Graceful placeholder if the user has not added logo.png yet.
     logo_html = (
         '<div class="logo-shell">'
-        '<div style="font-size:26px;font-weight:850;color:#123a60;">AE</div>'
+        '<div style="font-size:30px;font-weight:850;color:#123a60;letter-spacing:1px;">AE</div>'
         '</div>'
     )
 
