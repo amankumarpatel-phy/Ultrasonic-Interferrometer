@@ -263,7 +263,9 @@ for key, value in defaults.items():
 #   2) logo.png         (repository root)
 logo_candidates = [
     os.path.join(os.path.dirname(__file__), "assets", "logo.png"),
+    os.path.join(os.path.dirname(__file__), "assets", "Logo.png"),
     os.path.join(os.path.dirname(__file__), "logo.png"),
+    os.path.join(os.path.dirname(__file__), "Logo.png"),
 ]
 
 logo_path = next((candidate for candidate in logo_candidates if os.path.isfile(candidate)), None)
